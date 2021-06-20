@@ -64,6 +64,7 @@ function draw() {
             }
 
             paddles[i].update();
+            paddles[i].checkCollisions(balls)
         }
     }
 }

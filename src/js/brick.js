@@ -1,6 +1,6 @@
 const {ctx} = require("./canvas");
 
-class Rectangle {
+class Brick {
 
     constructor(x,y,sizeX,sizeY,color) {
         this.x = x;
@@ -19,4 +19,4 @@ class Rectangle {
     }
 }
 
-export default Rectangle;
+export default Brick;

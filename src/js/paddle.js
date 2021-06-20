@@ -33,6 +33,10 @@ class Paddle {
     setPosition(pos) {
         this.posX += pos;
     }
+
+    checkCollisions(balls) {
+        
+    }
 }
 
 export default Paddle;
