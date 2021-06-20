@@ -12,7 +12,7 @@ let runAnimation = {
 function init() {
     //let x = 10;
     //let y = 10;
-    let size = 5;
+    let size = 15;
 
     let dirX = 2;
     let dirY = 2;

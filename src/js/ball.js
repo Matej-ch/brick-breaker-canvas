@@ -1,3 +1,5 @@
+import {canvas} from "./canvas";
+
 const {ctx} = require("./canvas");
 
 class Ball {
@@ -18,19 +20,27 @@ class Ball {
     }
 
     update() {
-        this.dirX = 2;
-        this.dirY = -2;
-        /*if(this.isOnCanvasX()) {
+
+        if(this.isOnCanvasX()) {
             this.dirX = -this.dirX;
         }
+
         if(this.isOnCanvasY()) {
             this.dirY = -this.dirY;
-        }*/
+        }
 
         this.x += this.dirX;
         this.y += this.dirY;
 
         this.draw();
+    }
+
+    isOnCanvasY() {
+        return this.y + this.dirY > canvas.height-this.radius || this.y + this.dirY < this.radius;
+    }
+
+    isOnCanvasX() {
+        return this.x + this.dirX > canvas.width - this.radius || this.x + this.dirX < this.radius;
     }
 }
 
