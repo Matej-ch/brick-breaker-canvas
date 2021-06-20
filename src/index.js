@@ -10,10 +10,17 @@ let runAnimation = {
 };
 
 function init() {
-    let x = 10;
-    let y = 10;
+    //let x = 10;
+    //let y = 10;
     let size = 5;
-    let ball = new Ball(x,y,size,'green');
+
+    let dirX = 2;
+    let dirY = 2;
+
+    let x = canvas.width/2;
+    let y = canvas.height-30;
+
+    let ball = new Ball(x,y,dirX,dirY,size,'green');
     balls.push(ball);
 }
 
@@ -23,7 +30,7 @@ function draw() {
         ctx.clearRect(0,0,innerWidth,innerHeight);
 
         for (let i =0; i < balls.length; i++) {
-            balls[i].draw();
+            balls[i].update();
         }
     }
 }
