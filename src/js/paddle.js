@@ -19,7 +19,19 @@ class Paddle {
 
     update() {
 
+        if (this.posX + this.width > canvas.width) {
+            this.posX = canvas.width - this.width;
+        }
+
+        if (this.posX < 0) {
+            this.posX = 0;
+        }
+
         this.draw();
+    }
+
+    setPosition(pos) {
+        this.posX += pos;
     }
 }
 

@@ -58,17 +58,9 @@ function draw() {
 
         for (let i =0; i < paddles.length; i++) {
             if(rightPressed) {
-                paddles[i].posX += 7;
-
-                if (paddles[i].posX + paddles[i].width > canvas.width) {
-                    paddles[i].posX = canvas.width - paddles[i].width;
-                }
-
-            }else if(leftPressed) {
-                paddles[i].posX -= 7;
-                if (paddles[i].posX < 0) {
-                    paddles[i].posX = 0;
-                }
+                paddles[i].setPosition(7);
+            } else if(leftPressed) {
+                paddles[i].setPosition(-7);
             }
 
             paddles[i].update();
@@ -100,11 +92,9 @@ document.addEventListener("keyup", keyUpHandler, false);
 
 function keyDownHandler(e) {
     if(e.code === "KeyD" || e.code === "ArrowRight") {
-        console.log('keyd down right');
         rightPressed = true;
     }
     else if(e.code === "KeyA" || e.code === "ArrowLeft") {
-        console.log('keyd down left');
         leftPressed = true;
     }
 }
