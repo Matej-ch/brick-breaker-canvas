@@ -54,6 +54,7 @@ function draw() {
 
         for (let i =0; i < balls.length; i++) {
             balls[i].update();
+            balls[i].checkCollisions(paddles[0])
         }
 
         for (let i =0; i < paddles.length; i++) {
@@ -64,7 +65,6 @@ function draw() {
             }
 
             paddles[i].update();
-            paddles[i].checkCollisions(balls)
         }
     }
 }

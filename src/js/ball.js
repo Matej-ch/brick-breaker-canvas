@@ -25,8 +25,15 @@ class Ball {
             this.dirX = -this.dirX;
         }
 
-        if(this.isOnCanvasY()) {
+        if(this.y + this.dirY < this.radius) {
             this.dirY = -this.dirY;
+        } else if(this.y + this.dirY > canvas.height-this.radius) {
+            if(this.x > this.paddle.posX && this.x < this.paddle.posX + this.paddle.width ) {
+                this.dirY = -this.dirY;
+            } else {
+                alert("GAME OVER");
+                document.location.reload();
+            }
         }
 
         this.x += this.dirX;
@@ -41,6 +48,10 @@ class Ball {
 
     isOnCanvasX() {
         return this.x + this.dirX > canvas.width - this.radius || this.x + this.dirX < this.radius;
+    }
+
+    checkCollisions(paddle) {
+        this.paddle = paddle;
     }
 }
 
