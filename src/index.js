@@ -2,10 +2,12 @@ import "./styles/main.css";
 import {canvas, ctx} from "./js/canvas";
 import Ball from "./js/ball";
 import Paddle from "./js/paddle";
+import BrickFactory from "./js/brickFactory";
 
 let balls = [];
 let bricks = [];
 let paddles = [];
+let brickFactory = null;
 
 let rightPressed = false;
 let leftPressed = false;
@@ -17,7 +19,9 @@ let runAnimation = {
 function init() {
     initBall();
     initPaddle();
-    initBricks();
+
+    brickFactory = new BrickFactory();
+    brickFactory.init();
 }
 
 function initBall() {
@@ -43,10 +47,6 @@ function initPaddle() {
     paddles.push(paddle);
 }
 
-function initBricks() {
-
-}
-
 function draw() {
     if(runAnimation.value) {
         requestAnimationFrame(draw);
@@ -66,6 +66,8 @@ function draw() {
 
             paddles[i].update();
         }
+
+        brickFactory.draw();
     }
 }
 
