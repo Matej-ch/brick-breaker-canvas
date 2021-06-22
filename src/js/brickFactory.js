@@ -44,14 +44,19 @@ class BrickFactory {
         }
     }
 
-    collisionDetection(ball) {
+    collisionDetection(ball,score) {
         for(let i = 0; i < this.rows; i++) {
             for(let j = 0; j < this.columns; j++) {
                 let b = this.bricks[i][j];
                 if(b.status === 1) {
                     if (ball.x > b.x && ball.x < b.x + this.bricksWidth && ball.y > b.y && ball.y < b.y + this.bricksHeight) {
-                        ball.posY = -ball.posY;
+                        ball.dirY = -ball.dirY;
                         b.status = 0;
+                        score.value++;
+                        if(score.value === this.columns * this.rows) {
+                            alert("YOU WIN, CONGRATS!");
+                            document.location.reload();
+                        }
                     }
                 }
             }

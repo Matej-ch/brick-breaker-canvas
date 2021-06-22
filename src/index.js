@@ -9,6 +9,7 @@ let bricks = [];
 let paddles = [];
 let brickFactory = null;
 
+let score = {value:0};
 let rightPressed = false;
 let leftPressed = false;
 
@@ -19,6 +20,7 @@ let runAnimation = {
 function init() {
     initBall();
     initPaddle();
+    drawScore();
 
     brickFactory = new BrickFactory();
     brickFactory.init();
@@ -52,7 +54,7 @@ function draw() {
         requestAnimationFrame(draw);
         ctx.clearRect(0,0,innerWidth,innerHeight);
 
-        brickFactory.collisionDetection(balls[0]);
+        brickFactory.collisionDetection(balls[0],score);
 
         for (let i =0; i < balls.length; i++) {
             balls[i].update();
@@ -70,6 +72,7 @@ function draw() {
         }
 
         brickFactory.draw();
+        drawScore();
     }
 }
 
@@ -111,4 +114,10 @@ function keyUpHandler(e) {
     else if(e.code === "KeyA" || e.code === "ArrowLeft") {
         leftPressed = false;
     }
+}
+
+function drawScore() {
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("Score: "+score.value, 8, 20);
 }
