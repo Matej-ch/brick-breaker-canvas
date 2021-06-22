@@ -1,4 +1,5 @@
 import {canvas, ctx} from "./canvas";
+import Brick from "./brick";
 
 class BrickFactory {
     rows = 10;
@@ -23,7 +24,7 @@ class BrickFactory {
         for(let i= 0; i < this.rows; i++) {
             this.bricks[i] = [];
             for(let j=0; j < this.columns; j++) {
-                this.bricks[i][j] = { x: 0, y: 0 };
+                this.bricks[i][j] = { x: 0, y: 0,status: 1 };
             }
         }
     }
@@ -31,16 +32,28 @@ class BrickFactory {
     draw() {
         for(let i= 0; i < this.rows; i++) {
             for(let j= 0; j < this.columns; j++) {
-                let brickX = (i * (this.bricksWidth + this.padding)) + this.offsetLeft;
-                let brickY = (j * (this.bricksHeight + this.padding)) + this.offsetTop;
-                this.bricks[i][j].x = brickX;
-                this.bricks[i][j].y = brickY;
+                if (this.bricks[i][j].status === 1) {
+                    let brickX = (i * (this.bricksWidth + this.padding)) + this.offsetLeft;
+                    let brickY = (j * (this.bricksHeight + this.padding)) + this.offsetTop;
+                    this.bricks[i][j].x = brickX;
+                    this.bricks[i][j].y = brickY;
+                    let brick = new Brick(brickX, brickY, this.bricksWidth, this.bricksHeight,"#0095DD")
+                    brick.draw();
+                }
+            }
+        }
+    }
 
-                ctx.beginPath();
-                ctx.rect(brickX, brickY, this.bricksWidth, this.bricksHeight);
-                ctx.fillStyle = "#0095DD";
-                ctx.fill();
-                ctx.closePath();
+    collisionDetection(ball) {
+        for(let i = 0; i < this.rows; i++) {
+            for(let j = 0; j < this.columns; j++) {
+                let b = this.bricks[i][j];
+                if(b.status === 1) {
+                    if (ball.x > b.x && ball.x < b.x + this.bricksWidth && ball.y > b.y && ball.y < b.y + this.bricksHeight) {
+                        ball.posY = -ball.posY;
+                        b.status = 0;
+                    }
+                }
             }
         }
     }

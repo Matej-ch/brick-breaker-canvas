@@ -52,6 +52,8 @@ function draw() {
         requestAnimationFrame(draw);
         ctx.clearRect(0,0,innerWidth,innerHeight);
 
+        brickFactory.collisionDetection(balls[0]);
+
         for (let i =0; i < balls.length; i++) {
             balls[i].update();
             balls[i].checkCollisions(paddles[0])
