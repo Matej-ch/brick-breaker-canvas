@@ -10,6 +10,8 @@ let paddles = [];
 let brickFactory = null;
 
 let score = {value:0};
+let lives = {value:0};
+
 let rightPressed = false;
 let leftPressed = false;
 
@@ -21,7 +23,7 @@ function init() {
     initBall();
     initPaddle();
     drawScore();
-
+    drawLives();
     brickFactory = new BrickFactory();
     brickFactory.init();
 }
@@ -73,6 +75,7 @@ function draw() {
 
         brickFactory.draw();
         drawScore();
+        drawLives();
     }
 }
 
@@ -97,6 +100,14 @@ window.addEventListener('resize',e => {
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
+document.addEventListener("mousemove", mouseMoveHandler, false);
+
+function mouseMoveHandler(e) {
+    let relativeX = e.clientX - canvas.offsetLeft;
+    if(relativeX > 0 && relativeX < canvas.width) {
+        paddles[0].posX = relativeX - paddles[0].width/2;
+    }
+}
 
 function keyDownHandler(e) {
     if(e.code === "KeyD" || e.code === "ArrowRight") {
@@ -120,4 +131,10 @@ function drawScore() {
     ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD";
     ctx.fillText("Score: "+score.value, 8, 20);
+}
+
+function drawLives() {
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("Lives: "+lives.value, canvas.width-65, 20);
 }
