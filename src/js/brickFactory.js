@@ -53,9 +53,9 @@ class BrickFactory {
                     if (ball.x > b.x && ball.x < b.x + this.bricksWidth && ball.y > b.y && ball.y < b.y + this.bricksHeight) {
                         ball.dirY = -ball.dirY;
                         b.status = 0;
-                        gameState.score++;
-                        if(gameState.score === this.columns * this.rows) {
-                            gameState.isGameOver = true;
+                        this.gameState.score++;
+                        if(this.gameState.score === this.columns * this.rows) {
+                            this.gameState.isGameOver = true;
                         }
                     }
                 }

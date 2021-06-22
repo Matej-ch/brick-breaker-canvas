@@ -32,7 +32,7 @@ class Ball {
             if(this.x > this.paddle.posX && this.x < this.paddle.posX + this.paddle.width ) {
                 this.dirY = -this.dirY;
             } else {
-                gameState.isGameOver = true;
+                this.gameState.isGameOver = true;
             }
         }
 
