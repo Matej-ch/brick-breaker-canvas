@@ -1,8 +1,9 @@
-import {canvas} from "./canvas";
-
-const {ctx} = require("./canvas");
+import {canvas,ctx} from "./canvas";
 
 class Ball {
+
+    gameState = null;
+
     constructor(x,y,dirX,dirY,radius,color) {
         this.x = x;
         this.y = y;
@@ -31,8 +32,7 @@ class Ball {
             if(this.x > this.paddle.posX && this.x < this.paddle.posX + this.paddle.width ) {
                 this.dirY = -this.dirY;
             } else {
-                alert("GAME OVER");
-                document.location.reload();
+                gameState.isGameOver = true;
             }
         }
 
@@ -48,6 +48,10 @@ class Ball {
 
     isOnCanvasX() {
         return this.x + this.dirX > canvas.width - this.radius || this.x + this.dirX < this.radius;
+    }
+
+    setGameState(gameState) {
+        this.gameState = gameState;
     }
 
     checkCollisions(paddle) {

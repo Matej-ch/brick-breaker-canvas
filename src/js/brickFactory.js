@@ -1,4 +1,4 @@
-import {canvas, ctx} from "./canvas";
+import {canvas} from "./canvas";
 import Brick from "./brick";
 
 class BrickFactory {
@@ -10,6 +10,7 @@ class BrickFactory {
     bricksWidth = 75;
     bricksHeight = 20;
     bricks = [];
+    gameState = null;
 
     constructor(rows = 10,columns= 5,padding = 10,offsetTop = 30,offsetLeft = 30) {
         this.rows = rows;
@@ -44,7 +45,7 @@ class BrickFactory {
         }
     }
 
-    collisionDetection(ball,score) {
+    collisionDetection(ball) {
         for(let i = 0; i < this.rows; i++) {
             for(let j = 0; j < this.columns; j++) {
                 let b = this.bricks[i][j];
@@ -52,15 +53,18 @@ class BrickFactory {
                     if (ball.x > b.x && ball.x < b.x + this.bricksWidth && ball.y > b.y && ball.y < b.y + this.bricksHeight) {
                         ball.dirY = -ball.dirY;
                         b.status = 0;
-                        score.value++;
-                        if(score.value === this.columns * this.rows) {
-                            alert("YOU WIN, CONGRATS!");
-                            document.location.reload();
+                        gameState.score++;
+                        if(gameState.score === this.columns * this.rows) {
+                            gameState.isGameOver = true;
                         }
                     }
                 }
             }
         }
+    }
+
+    setGameState(gameState) {
+        this.gameState = gameState;
     }
 }
 

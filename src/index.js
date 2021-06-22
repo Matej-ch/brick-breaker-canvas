@@ -3,14 +3,13 @@ import {canvas, ctx} from "./js/canvas";
 import Ball from "./js/ball";
 import Paddle from "./js/paddle";
 import BrickFactory from "./js/brickFactory";
+import GameState from "./js/gameState";
 
 let balls = [];
 let bricks = [];
 let paddles = [];
 let brickFactory = null;
-
-let score = {value:0};
-let lives = {value:0};
+let gameState = null;
 
 let rightPressed = false;
 let leftPressed = false;
@@ -20,12 +19,14 @@ let runAnimation = {
 };
 
 function init() {
+    gameState = new GameState();
     initBall();
     initPaddle();
     drawScore();
     drawLives();
     brickFactory = new BrickFactory();
     brickFactory.init();
+    brickFactory.setGameState(gameState);
 }
 
 function initBall() {
@@ -36,6 +37,7 @@ function initBall() {
     let y = canvas.height-30;
 
     let ball = new Ball(x,y,dirX,dirY,size,'green');
+    ball.setGameState(gameState);
     balls.push(ball);
 }
 
@@ -56,7 +58,12 @@ function draw() {
         requestAnimationFrame(draw);
         ctx.clearRect(0,0,innerWidth,innerHeight);
 
-        brickFactory.collisionDetection(balls[0],score);
+        if(gameState.isGameOver === true) {
+            alert('GAME OVER');
+            document.location.reload();
+        }
+
+        brickFactory.collisionDetection(balls[0]);
 
         for (let i =0; i < balls.length; i++) {
             balls[i].update();
@@ -130,11 +137,11 @@ function keyUpHandler(e) {
 function drawScore() {
     ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD";
-    ctx.fillText("Score: "+score.value, 8, 20);
+    ctx.fillText("Score: "+ gameState.score, 8, 20);
 }
 
 function drawLives() {
     ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD";
-    ctx.fillText("Lives: "+lives.value, canvas.width-65, 20);
+    ctx.fillText("Lives: "+ gameState.lives, canvas.width-65, 20);
 }
