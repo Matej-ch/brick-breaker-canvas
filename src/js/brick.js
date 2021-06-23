@@ -2,12 +2,13 @@ const {ctx} = require("./canvas");
 
 class Brick {
 
-    constructor(x,y,sizeX,sizeY,color) {
+    constructor(x,y,sizeX,sizeY,color,status) {
         this.x = x;
         this.y = y;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.color = color;
+        this.status = status;
     }
 
     draw() {

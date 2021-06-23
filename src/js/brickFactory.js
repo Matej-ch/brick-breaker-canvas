@@ -25,7 +25,7 @@ class BrickFactory {
         for(let i= 0; i < this.rows; i++) {
             this.bricks[i] = [];
             for(let j=0; j < this.columns; j++) {
-                this.bricks[i][j] = { x: 0, y: 0,status: 1 };
+                this.bricks[i][j] =  new Brick(0,0,this.bricksWidth, this.bricksHeight,"#0095DD",1)
             }
         }
     }
@@ -38,8 +38,7 @@ class BrickFactory {
                     let brickY = (j * (this.bricksHeight + this.padding)) + this.offsetTop;
                     this.bricks[i][j].x = brickX;
                     this.bricks[i][j].y = brickY;
-                    let brick = new Brick(brickX, brickY, this.bricksWidth, this.bricksHeight,"#0095DD")
-                    brick.draw();
+                    this.bricks[i][j].draw();
                 }
             }
         }
